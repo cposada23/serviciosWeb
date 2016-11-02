@@ -39,7 +39,7 @@ public class ServiciosInvestigador{
 	
 	/**
 	 * Metodo para el servicio web de obtener un usuario validando su login y contrasena
-	 * @return JSON  con la informacion del nombre y apellido del usuario 
+	 * @return JSON  con la informacion del nombre,apellid, email y cedula del usuario 
 	 * @throws RemoteException en caso de que el usuario no se encuentre o la contraseña sea incorrecta
 	 */
 	@GET
