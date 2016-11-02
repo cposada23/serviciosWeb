@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
-	<display-name>ServiciosWeb</display-name>
+	<display-name>ejemploServiciosWeb</display-name>
 	<servlet>
 		<servlet-name>ServiciosCamilo</servlet-name>
 		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
@@ -11,8 +11,7 @@
 			<param-name>com.sun.jersey.config.property.packages</param-name>
 			<param-value>com.edu.udea.iw.ws</param-value>
 		</init-param>
-		<load-on-startup>1</load-on-startup> <!-- cuando la aplicacion hace run este servlet se carga el uno es para el 
-			orden , puedo tener mas servlet ahi les doy el orden -->
+		<load-on-startup>1</load-on-startup> <!--  cuando la aplicacion hace run este servlet se carga el uno es para el orden , puedo tener mas servlet ahi les doy el orden -->
 	</servlet>
 
 	<servlet-mapping>
@@ -22,7 +21,7 @@
 	
 	
 	
-	<!-- needed for ContextLoaderListener -->
+	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:configuracion.xml</param-value>
@@ -32,5 +31,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+
 	
+
 </web-app>

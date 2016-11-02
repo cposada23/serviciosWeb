@@ -3,6 +3,7 @@
 	<name>ServiciosWeb</name>
 	<comment></comment>
 	<projects>
+		<project>ingweb</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
