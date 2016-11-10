@@ -1,5 +1,6 @@
 package com.edu.udea.iw.ws;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -138,6 +139,26 @@ public class ServicioDispositivo {
 			throw new MyDaoExeption("Dispositivo no encontrado", null);
 		}
 		return listaDispositivo;
+	}
+	
+	
+	
+	/**
+	 * Servicio que retorna todos los dispositivos de la base de datos
+	 * @return Lista de dispositivos 
+	 * @throws RemoteException cuando no se encuentra ningun dispositivo
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("ListarDispositivos")
+	public List<Dispositivo> listarDispositivos() throws RemoteException{
+		List<Dispositivo> dispositivos = null;
+		try {
+			dispositivos = dispositivoBL.listarDispositivos("elver");
+		} catch (MyDaoExeption e) {
+			throw new RemoteException(e.getMessage(), e);
+		}
+		return dispositivos;
 	}
 	
 	

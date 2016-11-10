@@ -41,6 +41,13 @@ public class ServicioReserva {
 		this.reservaBL = reservaBL;
 	}
 	
+	/**
+	 * Servicio web para crear una nueva reserva 
+	 * @param usuarioReserva: El usuario que va a reservar el dispositivo
+	 * @param dispositivo: id del dispositivo que se va a reservar
+	 * @throws MyDaoExeption cuando no se encuentra el usuario o el dispositivo
+	 */
+	
 	@POST
 	@Path("CrearReserva")
 	public void crearReserva(@QueryParam("usuarioReserva")String usuarioReserva, @QueryParam("dispositivo")int dispositivo) throws MyDaoExeption{
@@ -51,6 +58,13 @@ public class ServicioReserva {
 		}
 	}
 	
+	/**
+	 * Servicio web para aprobar una reserva 
+	 * @param usuarioAprueba: el id del usuario que aprueba la reserva
+	 * @param codigoReserva: id de la reserva que se desea aprobar
+	 * @throws MyDaoExeption cuando el usuario que aprueba no se encuentra o no es un administrador, tambien cuando la reserva ya habia sido 
+	 * 						 previamente aprobada o esta no se encuentra
+	 */
 	
 	@POST
 	@Path("AprobarReserva")
@@ -63,6 +77,13 @@ public class ServicioReserva {
 		}
 	}
 	
+	
+	/**
+	 * Servicio web para obtener la lista de reservas que tengo diponibles 
+	 * @param usuarioReserva: id del usuario que quiere ver su lista de reservas
+	 * @return Lista con las reservas del usuario 
+	 * @throws MyDaoExeption cuando el usuario no se encuentra o no tiene reservas a su nombre
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("misReservas")
