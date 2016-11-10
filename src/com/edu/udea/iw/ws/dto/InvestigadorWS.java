@@ -1,7 +1,15 @@
 package com.edu.udea.iw.ws.dto;
 
+
+
 import javax.xml.bind.annotation.XmlRootElement;
 
+
+/**
+ * 
+ * @author Camilo Posada Angel -- cposadaa@gmail.com
+ * Clase para devolver en el servicio web la informacion relevante de los usuarios que son investigadores
+ */
 @XmlRootElement
 public class InvestigadorWS {
 	private String nombres;

@@ -1,6 +1,7 @@
 package com.edu.udea.iw.ws;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -17,6 +18,7 @@ import com.edu.udea.iw.dao.DispositivoDao;
 import com.edu.udea.iw.dto.Dispositivo;
 import com.edu.udea.iw.exeption.MyDaoExeption;
 import com.edu.udea.iw.logicaNegocio.DispositivoBL;
+import com.edu.udea.iw.ws.dto.DispositivoWS;
 
 
 /**
@@ -131,14 +133,16 @@ public class ServicioDispositivo {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("ListarDispositivo")
-	public Dispositivo ListarDispositivo(@QueryParam("usuarioBusca")String usuarioBusca, @QueryParam("codigo")int codigo) throws MyDaoExeption{
+	public DispositivoWS ListarDispositivo(@QueryParam("usuarioBusca")String usuarioBusca, @QueryParam("codigo")int codigo) throws MyDaoExeption{
 		Dispositivo listaDispositivo = null;
+		DispositivoWS dispositivo= null;
 		try{
 			listaDispositivo = dispositivoBL.listarDispositivoPorCodigo(usuarioBusca, codigo);
+			dispositivo = new DispositivoWS(listaDispositivo.getDescripcion(), listaDispositivo.getTipo().getNombre(), listaDispositivo.getCodigo());
 		}catch (MyDaoExeption e) {
 			throw new MyDaoExeption("Dispositivo no encontrado", null);
 		}
-		return listaDispositivo;
+		return dispositivo;
 	}
 	
 	
@@ -151,14 +155,42 @@ public class ServicioDispositivo {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("ListarDispositivos")
-	public List<Dispositivo> listarDispositivos() throws RemoteException{
+	public List<DispositivoWS> listarDispositivos(@QueryParam("usuarioBusca")String usuarioBusca) throws RemoteException{
 		List<Dispositivo> dispositivos = null;
+		List<DispositivoWS> resultado = new ArrayList<>();
+		DispositivoWS dis;
 		try {
-			dispositivos = dispositivoBL.listarDispositivos("elver");
+			dispositivos = dispositivoBL.listarDispositivos(usuarioBusca);
+			
+			for(Dispositivo dispositivo: dispositivos){
+				dis = new DispositivoWS(dispositivo.getDescripcion(),dispositivo.getTipo().getNombre(), dispositivo.getCodigo());
+				resultado.add(dis);
+			}
 		} catch (MyDaoExeption e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
-		return dispositivos;
+		return resultado;
+	}
+	
+	
+	@GET 
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("ListarDispositivosDisponibles")
+	public List<DispositivoWS> listarDispositivosDisponibles(@QueryParam("usuarioBusca")String usuarioBusca) throws RemoteException{
+		List<Dispositivo> dispositivos = null;
+		
+		List<DispositivoWS> resultado = new ArrayList<>();
+		DispositivoWS dis;
+		try {
+			dispositivos = dispositivoBL.listarDipositivosDisponibles(usuarioBusca);
+			for(Dispositivo dispositivo: dispositivos){
+				dis = new DispositivoWS(dispositivo.getDescripcion(), dispositivo.getTipo().getNombre(), dispositivo.getCodigo());
+				resultado.add(dis);
+			}
+		} catch (MyDaoExeption e) {
+			throw new RemoteException(e.getMessage(), e);
+		}
+		return resultado;
 	}
 	
 	
