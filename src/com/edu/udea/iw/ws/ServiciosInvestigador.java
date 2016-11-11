@@ -3,6 +3,7 @@ package com.edu.udea.iw.ws;
 import java.rmi.RemoteException;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -61,6 +62,34 @@ public class ServiciosInvestigador{
 		
 		
 		return investigador;
+	}
+	
+	
+	/**
+	 * Serivicio web para crear un nuevo investigador en la bd
+	 * @param cedula: Documento de identifiacion del investigador
+	 * @param nombre
+	 * @param apellidos
+	 * @param contrasena
+	 * @param email
+	 * @throws RemoteException
+	 */
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("cearInvestigador")
+	public void crearInvestigador(@QueryParam("cedula") String cedula,
+								  @QueryParam("nombre") String nombre,
+								  @QueryParam("apellidos") String apellidos,
+								  @QueryParam("contrasena") String contrasena,
+								  @QueryParam("email") String email) throws RemoteException{
+	
+		
+		try {
+			usuarioBL.crearInvestigador(cedula, nombre, apellidos, contrasena, email);
+		} catch (MyDaoExeption e) {
+			throw new RemoteException(e.getMessage(),e);
+		}
+		
 	}
 	
 	

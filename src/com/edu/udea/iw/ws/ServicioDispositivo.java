@@ -55,7 +55,10 @@ public class ServicioDispositivo {
 	 */
 	@POST
 	@Path("CrearDispositivo")
-	public void crearDispositivo(@QueryParam("codigo")int codigo,@QueryParam("descripcion")String descripcion,@QueryParam("usuarioCrea")String usuarioCrea,@QueryParam("tipo")String tipo) throws MyDaoExeption{
+	public void crearDispositivo(@QueryParam("codigo")int codigo,
+								 @QueryParam("descripcion")String descripcion,
+								 @QueryParam("usuarioCrea")String usuarioCrea,
+								 @QueryParam("tipo")String tipo) throws MyDaoExeption{
 			
 		try{
 			dispositivoBL.crearDispositivo(codigo, descripcion, usuarioCrea, tipo);
@@ -73,11 +76,14 @@ public class ServicioDispositivo {
 	 */
 	@POST
 	@Path("ActualizarDatosDispositivo")
-	public void actualizarDispositivo(@QueryParam("usuarioActualiza")String usuarioActualiza,@QueryParam("dispositivo")int codigoDispositivo) throws MyDaoExeption{
+	public void actualizarDispositivo(@QueryParam("usuarioActualiza")String usuarioActualiza,
+									  @QueryParam("codigo")int codigoDispositivo,
+									  @QueryParam("descripcion") String descripcion,
+									  @QueryParam("tipo") String tipo) throws MyDaoExeption{
 			
 		try{
-			Dispositivo dispositivo = dispositivoDao.obtenerPorCodigo(codigoDispositivo);
-			dispositivoBL.actualizarDatos(usuarioActualiza, dispositivo);
+			dispositivoBL.actualizarDatosDispositivo(usuarioActualiza, codigoDispositivo, descripcion, tipo);
+			
 		}catch (MyDaoExeption e) {
 			throw new MyDaoExeption("Error al momento de actualizar los datos del dispositivo", null);	
 		}
@@ -192,6 +198,31 @@ public class ServicioDispositivo {
 		}
 		return resultado;
 	}
+	
+	
+	/**
+	 * Lista el dispositivo dado su codigo
+	 * @param codigo: numero entero que representa el codigo del dispositivo 
+	 * @param usuarioBusca: Usuario que realiza la consulta del dispositivo
+	 * @return Un dispositivo con toda su informacion
+	 * @throws RemoteException cuando no se encuentra el dispositivo
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("listarPorCodigo")
+	public DispositivoWS listarPorCodigo(@QueryParam("codigo") int codigo,@QueryParam("usuarioBusca") String usuarioBusca) throws RemoteException{
+		DispositivoWS dispositivoWS = null;
+		Dispositivo dispositivo = null;
+		try {
+			dispositivo = dispositivoBL.listarDispositivoPorCodigo(usuarioBusca, codigo);
+			dispositivoWS = new DispositivoWS(dispositivo.getDescripcion(), dispositivo.getTipo().getNombre(), dispositivo.getCodigo());
+		} catch (MyDaoExeption e) {
+			throw new RemoteException(e.getMessage(), e);
+		}
+		return dispositivoWS;
+		
+	}
+	
 	
 	
 	
