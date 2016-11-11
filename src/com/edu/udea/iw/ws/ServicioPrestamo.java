@@ -1,6 +1,7 @@
 package com.edu.udea.iw.ws;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Component;
 import com.edu.udea.iw.dto.Prestamo;
 import com.edu.udea.iw.exeption.MyDaoExeption;
 import com.edu.udea.iw.logicaNegocio.PrestamoBL;
+import com.edu.udea.iw.ws.dto.DispositivoWS;
+import com.edu.udea.iw.ws.dto.PrestamoWS;
 
 /**
  * Clase para el manejo de servicios web concernientes a los Prestamos
@@ -65,14 +68,22 @@ public class ServicioPrestamo {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("BuscarPrestamos")
-	public List<Prestamo> buscarPrestamos(@QueryParam("usuarioPresta")String usuarioPresta) throws MyDaoExeption{
+	public List<PrestamoWS> buscarPrestamos(@QueryParam("usuarioPresta")String usuarioPresta) throws MyDaoExeption{
 		List<Prestamo> listaPrestamo = null;
+		List<PrestamoWS> resultado = new ArrayList<>();
+		PrestamoWS prestamoWS;
+		DispositivoWS dispositivoWS;
 		try{
 			listaPrestamo= prestamoBL.buscarPrestamos(usuarioPresta);
+			for(Prestamo prestamo: listaPrestamo){
+				dispositivoWS = new DispositivoWS(prestamo.getDispositivo().getDescripcion(), prestamo.getDispositivo().getTipo().getNombre(), prestamo.getDispositivo().getCodigo());
+				prestamoWS = new PrestamoWS(prestamo.getCodigo(), dispositivoWS, prestamo.getFechaInicio(), prestamo.getFechaFin());
+				resultado.add(prestamoWS);
+			}
 		}catch (MyDaoExeption e) {
 			throw new MyDaoExeption("Prestamos no encontrados", null);
 		}
-		return listaPrestamo;
+		return resultado;
 	}
 	
 

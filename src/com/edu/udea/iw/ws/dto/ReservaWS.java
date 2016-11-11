@@ -7,7 +7,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import com.edu.udea.iw.dto.Dispositivo;
 import com.edu.udea.iw.dto.Usuario;
 
-
+/**
+ * 
+ * @author Camilo Posada Angel -- cposadaa@gmail.com
+ *
+ */
 @XmlRootElement
 public class ReservaWS {
 
