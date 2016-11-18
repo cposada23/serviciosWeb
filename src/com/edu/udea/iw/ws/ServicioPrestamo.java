@@ -76,7 +76,7 @@ public class ServicioPrestamo {
 		try{
 			listaPrestamo= prestamoBL.buscarPrestamos(usuarioPresta);
 			for(Prestamo prestamo: listaPrestamo){
-				dispositivoWS = new DispositivoWS(prestamo.getDispositivo().getDescripcion(), prestamo.getDispositivo().getTipo().getNombre(), prestamo.getDispositivo().getCodigo());
+				dispositivoWS = new DispositivoWS(prestamo.getDispositivo().getDescripcion(), prestamo.getDispositivo().getTipo().getNombre(), prestamo.getDispositivo().getCodigo(), prestamo.getDispositivo().isEstado());
 				prestamoWS = new PrestamoWS(prestamo.getCodigo(), dispositivoWS, prestamo.getFechaInicio(), prestamo.getFechaFin());
 				resultado.add(prestamoWS);
 			}

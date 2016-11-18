@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!-- <meta charset="ISO-8859-1"> -->
+<title>Prestamo de dispositivos</title>
+
+<link rel="stylesheet" href="css/bootstrap/dist/css/bootstrap.min.css">
+<!--  <link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">-->
+<link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="js/angular-cookies.min.js"></script>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript"
+	src="css/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/ui-bootstrap-tpls-2.2.0.min.js"></script>
+
+
+<!--  Aplicacion    -->
+<script type="text/javascript" src="app/app.js"></script>
+<script type="text/javascript" src="app/home/homeCtrl.js">
+	
+</script>
+<script type="text/javascript" src="app/perfil/perfilCtrl.js"></script>
+<script type="text/javascript" src="app/dispositivos/dispositivoCtrl.js"></script>
+<script type="text/javascript" src="app/prestamos/prestamoCtrl.js"></script>
+<script type="text/javascript" src="app/reservas/reservaCtrl.js"></script>
+<script type="text/javascript" src="app/dispositivos/detalleCtrl.js"></script>
+<!--  Servicios  -->
+<script type="text/javascript" src="app/servicios/Auth.js"></script>
+<script type="text/javascript" src="app/servicios/Dispositivos.js"></script>
+
+
+
+</head>
+<body ng-app="Prestamos">
+
+	<nav class="navbar navbar-default navbar-inverse navbar-fixed-top"
+		role="navigation" ng-controller="homeCtrl as nav">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Pagina principal</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" ui-sref="Home">Prestamo de dispositivos</a>
+			</div>
+
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li ng-show="nav.autenticado" ><a ui-sref="Perfil">Perfil</a></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown">Acciones <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li ng-show="nav.autenticado && !nav.isAdmin"><a href="#">Realizar Reserva</a></li>
+							<li ng-show="nav.autenticado && !nav.isAdmin" class="divider"></li>
+							<li ng-show="nav.autenticado && !nav.isAdmin"><a href="#">Mis Prestamos</a></li>
+							<li ng-show="nav.autenticado && !nav.isAdmin" class="divider"></li>
+							<li ng-show="nav.autenticado && !nav.isAdmin"><a href="#">Mis Reservas</a></li>
+							<li ng-show="nav.autenticado && nav.isAdmin" class="divider"></li>
+							<li ng-show="nav.autenticado && nav.isAdmin"><a ui-sref="AprobarReserva">Aprobar reserva</a></li>
+							<li ng-show="nav.autenticado && nav.isAdmin" class="divider"></li>
+							<li ng-show="nav.autenticado && nav.isAdmin"><a ui-sref="AprobarReserva">Realizar prestamo</a></li>
+							<li class="divider"></li>
+							<li><a ui-sref="ListaDispositivos">Busqueda dipositivos</a></li>
+						</ul></li>
+				</ul>
+				<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control"
+							placeholder="Buscar dispositivo por tipo">
+					</div>
+					<button type="submit" class="btn btn-default">Buscar</button>
+				</form>
+				<ul class="nav navbar-nav navbar-right">
+					<li ng-hide="nav.autenticado"><p class="navbar-text">Ya
+							tiene una cuenta?</p></li>
+					<li ng-show="nav.autenticado"><p class="navbar-text">Hola {{nav.usuarioActual}} </p></li>
+					<li class="dropdown" ng-hide="nav.autenticado"><a href=""
+						class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span
+							class="caret"></span></a>
+						<ul id="login-dp" class="dropdown-menu">
+							<li>
+								<div class="row">
+									<div class="col-md-12">
+										Login
+										<form class="form" role="form" id="login-nav" ng-submit="nav.autenticar()">
+											<div class="form-group">
+												<label class="sr-only" for="exampleInputEmail2">Email
+												</label> <input type="email" class="form-control"
+													id="exampleInputEmail2" placeholder="Email" ng-model="nav.usuario.email" required>
+											</div>
+											<div class="form-group">
+												<label class="sr-only" for="exampleInputPassword2">Contraseña</label>
+												<input type="password" class="form-control"
+													id="exampleInputPassword2" placeholder="Password" ng-model="nav.usuario.password" required>
+											</div>
+											<div class="form-group">
+												<button type="submit" class="btn btn-dark btn-block">Login</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</li>
+						</ul></li>
+					<li ng-show="nav.autenticado"><div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed"
+								data-toggle="collapse"
+								data-target="#bs-example-navbar-collapse-1">
+								<span class="sr-only">logout</span> <span
+									class="icon-bar"></span> <span class="icon-bar"></span> <span
+									class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" ng-click = "nav.logout()" ui-sref="Home">Logout</a>
+						</div></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<div class="hnb" ui-view></div>
+
+</body>
+</html>

@@ -4,9 +4,6 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.edu.udea.iw.dto.Dispositivo;
-import com.edu.udea.iw.dto.Usuario;
-
 /**
  * 
  * @author Camilo Posada Angel -- cposadaa@gmail.com
@@ -18,10 +15,25 @@ public class ReservaWS {
 
 	private Date FechaReserva;
 	private Date vence;
-	private Dispositivo dispositivo;
+	private DispositivoWS dispositivo;
 	private boolean aprobado;
+	private UsuarioWs usuario;
 	
-	
+	public ReservaWS(){}
+	public ReservaWS(Date fechaReserva, Date vence, DispositivoWS dispositivo, boolean aprobado, UsuarioWs usuario) {
+		super();
+		FechaReserva = fechaReserva;
+		this.vence = vence;
+		this.dispositivo = dispositivo;
+		this.aprobado = aprobado;
+		this.usuario = usuario;
+	}
+	public UsuarioWs getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(UsuarioWs usuario) {
+		this.usuario = usuario;
+	}
 	public Date getFechaReserva() {
 		return FechaReserva;
 	}
@@ -34,10 +46,10 @@ public class ReservaWS {
 	public void setVence(Date vence) {
 		this.vence = vence;
 	}
-	public Dispositivo getDispositivo() {
+	public DispositivoWS getDispositivo() {
 		return dispositivo;
 	}
-	public void setDispositivo(Dispositivo dispositivo) {
+	public void setDispositivo(DispositivoWS dispositivo) {
 		this.dispositivo = dispositivo;
 	}
 	public boolean isAprobado() {

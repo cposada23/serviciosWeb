@@ -17,7 +17,9 @@ import com.edu.udea.iw.dao.ReservaDao;
 import com.edu.udea.iw.dto.Reserva;
 import com.edu.udea.iw.exeption.MyDaoExeption;
 import com.edu.udea.iw.logicaNegocio.ReservaBL;
+import com.edu.udea.iw.ws.dto.DispositivoWS;
 import com.edu.udea.iw.ws.dto.ReservaWS;
+import com.edu.udea.iw.ws.dto.UsuarioWs;
 
 /**
  * Clase para el manejo de servicios web concernientes a las reservas
@@ -78,6 +80,27 @@ public class ServicioReserva {
 	}
 	
 	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("verReserva")
+	public ReservaWS mostrarReserva(@QueryParam("usuarioBusca")String usuario, @QueryParam("reserva") int codigo) throws MyDaoExeption{
+		Reserva reserva = null;
+		ReservaWS resultado = null;
+		DispositivoWS dispositivo = null;
+		UsuarioWs user = null;
+		try {
+			reserva = reservaDao.obtenerReserva(codigo);
+			user = new UsuarioWs(reserva.getUsuarioReserva().getNombres(), reserva.getUsuarioReserva().getCedula(), reserva.getUsuarioReserva().getApellidos(), reserva.getUsuarioReserva().getEmail(), reserva.getUsuarioReserva().getRol().getCodigo());
+			dispositivo = new DispositivoWS(reserva.getDispositivo().getDescripcion(), reserva.getDispositivo().getTipo().getNombre(), reserva.getDispositivo().getCodigo(), reserva.getDispositivo().isEstado());
+			resultado = new ReservaWS(reserva.getFechaReserva(), reserva.getVence(), dispositivo, reserva.getAprobado(), user);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return resultado;
+		
+	}
+	
 	/**
 	 * Servicio web para obtener la lista de reservas que tengo diponibles 
 	 * @param usuarioReserva: id del usuario que quiere ver su lista de reservas
@@ -91,13 +114,15 @@ public class ServicioReserva {
 		List<Reserva> reservas = null;
 		List<ReservaWS> resultado = new ArrayList<>();
 		ReservaWS reserva =  null;
+		DispositivoWS dispositivo = null;
 		try {
 			reservas = reservaBL.misReservas(usuarioReserva);
 			for(Reserva r : reservas ){
+				dispositivo = new DispositivoWS(r.getDispositivo().getDescripcion(), r.getDispositivo().getTipo().getCodigo(), r.getDispositivo().getCodigo(), r.getDispositivo().isEstado());
 				reserva = new ReservaWS();
 				reserva.setFechaReserva(r.getFechaReserva());
 				reserva.setAprobado(r.getAprobado());
-				reserva.setDispositivo(r.getDispositivo());
+				reserva.setDispositivo(dispositivo);
 				reserva.setVence(r.getVence());
 				resultado.add(reserva);
 			}

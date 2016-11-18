@@ -1,0 +1,17 @@
+<h1>Lista de dispositivos</h1>
+
+<div id="table-dispositivos" class="clear">
+    <div class="plan" ng-repeat = "dis in dispositivo.lista.dispositivoWS">
+        <h3>{{dis.tipo}}<span><img alt="" src=""></span></h3>
+        <a class="btn btn-info" ng-show="dispositivo.autenticado()">Reservar</a>         
+        <ul>
+            <li><b>Disponible</b> {{dis.disponible}}</li>
+					
+        </ul> 
+        
+        <button class="btn btn-dark" ng-click="dispositivo.verDetalle(dis)">Ver Detalles</button>
+        
+    </div>
+</div>
+
+

@@ -15,13 +15,16 @@ public class DispositivoWS {
 	private String descripcion; //Descripcion del dispositivo( cantidad de ram, disco duro... etc)
 	private String tipo; //Tipo del dispositivo( portatil, microscopio ...etc)
 	private int codigo;
+	private boolean disponible;
+	
 	
 	public DispositivoWS(){}
-	public DispositivoWS(String descripcion, String tipo, int codigo) {
+	public DispositivoWS(String descripcion, String tipo, int codigo, boolean disponible) {
 		super();
 		this.descripcion = descripcion;
 		this.tipo = tipo;
 		this.codigo = codigo;
+		this.disponible = disponible;
 	}
 	public String getDescripcion() {
 		return descripcion;
@@ -40,6 +43,12 @@ public class DispositivoWS {
 	}
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
+	}
+	public boolean isDisponible() {
+		return disponible;
+	}
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
 	}
 	
 

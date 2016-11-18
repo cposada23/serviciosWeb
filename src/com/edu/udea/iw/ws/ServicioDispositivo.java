@@ -144,7 +144,7 @@ public class ServicioDispositivo {
 		DispositivoWS dispositivo= null;
 		try{
 			listaDispositivo = dispositivoBL.listarDispositivoPorCodigo(usuarioBusca, codigo);
-			dispositivo = new DispositivoWS(listaDispositivo.getDescripcion(), listaDispositivo.getTipo().getNombre(), listaDispositivo.getCodigo());
+			dispositivo = new DispositivoWS(listaDispositivo.getDescripcion(), listaDispositivo.getTipo().getNombre(), listaDispositivo.getCodigo(), listaDispositivo.isEstado());
 		}catch (MyDaoExeption e) {
 			throw new MyDaoExeption("Dispositivo no encontrado", null);
 		}
@@ -161,15 +161,15 @@ public class ServicioDispositivo {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("ListarDispositivos")
-	public List<DispositivoWS> listarDispositivos(@QueryParam("usuarioBusca")String usuarioBusca) throws RemoteException{
+	public List<DispositivoWS> listarDispositivos() throws RemoteException{
 		List<Dispositivo> dispositivos = null;
 		List<DispositivoWS> resultado = new ArrayList<>();
 		DispositivoWS dis;
 		try {
-			dispositivos = dispositivoBL.listarDispositivos(usuarioBusca);
+			dispositivos = dispositivoBL.listarDispositivos();
 			
 			for(Dispositivo dispositivo: dispositivos){
-				dis = new DispositivoWS(dispositivo.getDescripcion(),dispositivo.getTipo().getNombre(), dispositivo.getCodigo());
+				dis = new DispositivoWS(dispositivo.getDescripcion(),dispositivo.getTipo().getNombre(), dispositivo.getCodigo(),dispositivo.isEstado());
 				resultado.add(dis);
 			}
 		} catch (MyDaoExeption e) {
@@ -190,7 +190,7 @@ public class ServicioDispositivo {
 		try {
 			dispositivos = dispositivoBL.listarDipositivosDisponibles(usuarioBusca);
 			for(Dispositivo dispositivo: dispositivos){
-				dis = new DispositivoWS(dispositivo.getDescripcion(), dispositivo.getTipo().getNombre(), dispositivo.getCodigo());
+				dis = new DispositivoWS(dispositivo.getDescripcion(), dispositivo.getTipo().getNombre(), dispositivo.getCodigo(), dispositivo.isEstado());
 				resultado.add(dis);
 			}
 		} catch (MyDaoExeption e) {
@@ -215,7 +215,7 @@ public class ServicioDispositivo {
 		Dispositivo dispositivo = null;
 		try {
 			dispositivo = dispositivoBL.listarDispositivoPorCodigo(usuarioBusca, codigo);
-			dispositivoWS = new DispositivoWS(dispositivo.getDescripcion(), dispositivo.getTipo().getNombre(), dispositivo.getCodigo());
+			dispositivoWS = new DispositivoWS(dispositivo.getDescripcion(), dispositivo.getTipo().getNombre(), dispositivo.getCodigo(), dispositivo.isEstado());
 		} catch (MyDaoExeption e) {
 			throw new RemoteException(e.getMessage(), e);
 		}
