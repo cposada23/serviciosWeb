@@ -57,7 +57,10 @@
 				$cookies.remove('autenticado');
 			},
 			getUsuario: function() {
-				return usuario;
+				if($cookies.getObject('usuario')){
+					return $cookies.getObject('usuario');
+				}
+				return null;
 			},
 			
 			

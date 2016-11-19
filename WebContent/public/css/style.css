@@ -39,6 +39,30 @@ body{
 	position: relative;
 }
 
+#table-dispositivos .res {
+    font: 12px 'Lucida Sans', 'trebuchet MS', Arial, Helvetica;
+    text-shadow: 0 1px rgba(255,255,255,.8);
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #333;
+    padding: 20px;
+    width: 750px;
+    float: left;
+    position: relative;
+}
+
+
+#table-dispositivos .res:nth-child(1) h3 {
+	-moz-border-radius: 5px 0 0 0;
+	-webkit-border-radius: 5px 0 0 0;
+	border-radius: 5px 0 0 0;       
+}
+
+#table-dispositivos .res:nth-child(4) h3 {
+	-moz-border-radius: 0 5px 0 0;
+	-webkit-border-radius: 0 5px 0 0;
+	border-radius: 0 5px 0 0;       
+}	
 
 #table-dispositivos .plan:nth-child(1) {
 	-moz-border-radius: 5px 0 0 5px;

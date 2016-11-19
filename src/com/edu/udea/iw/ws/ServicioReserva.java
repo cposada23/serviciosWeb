@@ -1,5 +1,6 @@
 package com.edu.udea.iw.ws;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,12 +71,14 @@ public class ServicioReserva {
 	
 	@POST
 	@Path("AprobarReserva")
-	public void aprobarReserva(@QueryParam("usuarioAprueba")String usuarioAprueba, @QueryParam("reserva")int codigoReserva) throws MyDaoExeption{
+	public void aprobarReserva(@QueryParam("usuarioAprueba")String usuarioAprueba, @QueryParam("reserva")int codigoReserva) throws RemoteException{
+		
+		System.out.println("hola  " + usuarioAprueba);
 		try{
 			Reserva reserva = reservaDao.obtenerReserva(codigoReserva);
 			reservaBL.aprobarReserva(usuarioAprueba, reserva);
-		}catch (Exception e) {
-			throw new MyDaoExeption("No se pudo aprobar la reserva", null);
+		}catch (MyDaoExeption e) {
+			throw new RemoteException(e.getMessage(),e);
 		}
 	}
 	
@@ -83,7 +86,7 @@ public class ServicioReserva {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("verReserva")
-	public ReservaWS mostrarReserva(@QueryParam("usuarioBusca")String usuario, @QueryParam("reserva") int codigo) throws MyDaoExeption{
+	public ReservaWS mostrarReserva(@QueryParam("usuarioBusca")String usuario, @QueryParam("reserva") int codigo) throws RemoteException{
 		Reserva reserva = null;
 		ReservaWS resultado = null;
 		DispositivoWS dispositivo = null;
@@ -92,10 +95,10 @@ public class ServicioReserva {
 			reserva = reservaDao.obtenerReserva(codigo);
 			user = new UsuarioWs(reserva.getUsuarioReserva().getNombres(), reserva.getUsuarioReserva().getCedula(), reserva.getUsuarioReserva().getApellidos(), reserva.getUsuarioReserva().getEmail(), reserva.getUsuarioReserva().getRol().getCodigo());
 			dispositivo = new DispositivoWS(reserva.getDispositivo().getDescripcion(), reserva.getDispositivo().getTipo().getNombre(), reserva.getDispositivo().getCodigo(), reserva.getDispositivo().isEstado());
-			resultado = new ReservaWS(reserva.getFechaReserva(), reserva.getVence(), dispositivo, reserva.getAprobado(), user);
+			resultado = new ReservaWS(reserva.getCodigo(),reserva.getFechaReserva(), reserva.getVence(), dispositivo, reserva.getAprobado(), user);
 			
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (MyDaoExeption e) {
+			throw new RemoteException(e.getMessage(),e);
 		}
 		return resultado;
 		
@@ -120,6 +123,7 @@ public class ServicioReserva {
 			for(Reserva r : reservas ){
 				dispositivo = new DispositivoWS(r.getDispositivo().getDescripcion(), r.getDispositivo().getTipo().getCodigo(), r.getDispositivo().getCodigo(), r.getDispositivo().isEstado());
 				reserva = new ReservaWS();
+				reserva.setCodigo(r.getCodigo());
 				reserva.setFechaReserva(r.getFechaReserva());
 				reserva.setAprobado(r.getAprobado());
 				reserva.setDispositivo(dispositivo);

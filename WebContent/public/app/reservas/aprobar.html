@@ -1,1 +1,75 @@
-<h1>Hola aprobar reserva</h1>
+<div class="container">
+	
+	
+	<div class="row">
+		<div class="col col-md-8 col-md-offset-2">
+			<h1>Aprobar reserva</h1>
+			<div uib-collapse="reserva.isCollapsed">
+				<uib-tabset active="activeForm"> 
+				<uib-tab index="0" heading="Buscar por usuario">
+					<br/>
+					<form name="nestedForm" ng-submit="reserva.buscarPorUsuario()" >
+						<div class="form-group">
+							<label>Cedula: </label> <input type="text" class="form-control"  ng-model="reserva.cedula" required />
+							<button class="btn btn-info form-control"  type="submit">Buscar Reservas</button>
+						</div>
+					</form>
+				</uib-tab> 
+				<uib-tab index="1" heading="Buscar por código">
+					<br/>
+					<form name="nestedForm" ng-submit="reserva.buscarPorCodigo()">
+						<div class="form-group">
+							<label>Codigo: </label> <input type="text" class="form-control" ng-model="reserva.codigo" required />
+							<button class="btn btn-info form-control" type="submit">Buscar Reserva</button>
+						</div>
+					</form>
+				
+				</uib-tab> 
+			</uib-tabset>
+			</div>
+			<button class="btn btn-info form-control" ng-show="reserva.isCollapsed" ng-click="reserva.isCollapsed = false">Buscar</button>
+			
+			
+		</div>
+	</div>
+	
+	
+	<div class="row" ng-hide="reserva.mostrar === 0">
+		<div class="col col-md-8 col-md-offset-2">
+			<div ng-show="reserva.mostrar === 1">
+				<h1>Informacion de reserva</h1>
+				<div id="table-dispositivos" class="clear">
+    				<div class="res" >
+				        <h3>{{reserva.reservas.dispositivo.tipo}}<span><img alt="" src=""></span></h3>       
+				        <ul>
+				        	<li><h1><b>Usuario</b></h1></li>
+				        	<li><b>Nombre: </b> {{reserva.reservas.usuario.nombres}} {{reserva.reservas.usuario.apellido}}</li>
+				        	<li><b>Cedula: </b> {{reserva.reservas.usuario.cedula}}</li>
+				        	<li><b>Email: </b> {{reserva.reservas.usuario.email}}</li>
+				        	<li><b>Rol: </b>{{reserva.reservas.usuario.rol}}</li>
+				            
+				        	<li><h1><b>Dispositivo</b></h1></li>
+				        	<li><b>Codigo:</b> {{reserva.reservas.dispositio.codigo}}</li>
+				        	<li><b>Disponible: </b> {{reserva.reservas.dispositivo.disponible}}</li>
+				        	<li><b>Descripcion: </b> {{reserva.reservas.dispositivo.descripcion}}</li>
+							
+							
+							<li><b>Fecha Reserva </b> {{reserva.reservas.fechaReserva | date}} </li>
+							<li><b>Fecha vencimiento</b> {{reserva.reservas.vence | date}}</li>		
+				        </ul> 
+				        
+				        <button class="btn btn-dark" ng-hide='reserva.reservas.aprobado==="true"' ng-click="reserva.aprobar(reserva.reservas.codigo)">Aprobar</button>
+        				<h1 style="color: red;" ng-show='reserva.reservas.aprobado === "true"'>La reserva ya fue aprobada</h1>
+    				</div>
+				</div>
+				<pre>{{reserva.reservas || json}}</pre>
+			</div>
+			
+			<div ng-show="reserva.mostrar === 2">
+				<h1>Reservas del usuario</h1>
+				<pre>{{reserva.reservas || json}}</pre>
+			</div>
+		</div>
+	</div>
+
+</div>

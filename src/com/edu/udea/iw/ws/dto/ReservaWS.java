@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ReservaWS {
 
-
+	private int codigo;
 	private Date FechaReserva;
 	private Date vence;
 	private DispositivoWS dispositivo;
@@ -20,14 +20,18 @@ public class ReservaWS {
 	private UsuarioWs usuario;
 	
 	public ReservaWS(){}
-	public ReservaWS(Date fechaReserva, Date vence, DispositivoWS dispositivo, boolean aprobado, UsuarioWs usuario) {
+	
+	public ReservaWS(int codigo, Date fechaReserva, Date vence, DispositivoWS dispositivo, boolean aprobado,
+			UsuarioWs usuario) {
 		super();
+		this.codigo = codigo;
 		FechaReserva = fechaReserva;
 		this.vence = vence;
 		this.dispositivo = dispositivo;
 		this.aprobado = aprobado;
 		this.usuario = usuario;
 	}
+
 	public UsuarioWs getUsuario() {
 		return usuario;
 	}
@@ -58,6 +62,13 @@ public class ReservaWS {
 	public void setAprobado(boolean aprobado) {
 		this.aprobado = aprobado;
 	}	
+	
+	public int getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
 	
 	
 }
