@@ -11,7 +11,7 @@
 (function(window, angular) {
 	/* Creacion del modulo */
 	angular
-		.module("Prestamos",['ui.router', 'ngCookies', 'ui.bootstrap']).config(config);
+		.module("Prestamos",['ui.router', 'ngCookies', 'ui.bootstrap', 'angularSpinner']).config(config);
 	
 	/*Inyeccion de las dependencias para la configuracion de la app*/
 	config.$inject = [ '$stateProvider','$urlRouterProvider'];
@@ -48,7 +48,18 @@
 	        	url:'/aprobar',
 	        	templateUrl:'app/reservas/aprobar.html',
 	        	controller: 'reservaCtrl as reserva'
-	        }).state('ListaDispositivos',{
+	        })
+	        .state('Reserva',{
+	        	url:'/reservar',
+	        	templateUrl:'app/reservas/reserva.html',
+	        	controller:'reservaCtrl as reserva'
+	        })
+	        .state('RealisarReserva',{
+	        	url:'/realizarReserva/:idDispositivo',
+	        	templateUrl:'app/reservas/reservar.html',
+	        	controller:'reslizarReservaCtrl as reserva'
+	        })
+	        .state('ListaDispositivos',{
 	        	url:'/listaDispositivos',
 	        	templateUrl:'app/dispositivos/dispositivo.html',
 	        	controller: 'dispositivoCtrl as dispositivo'

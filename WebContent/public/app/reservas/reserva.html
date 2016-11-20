@@ -1,0 +1,32 @@
+
+<h1>Seleccione el dispositivo </h1>
+
+<div id="table-dispositivos" class="clear">
+    <div class="plan" ng-repeat = "dis in reserva.lista.dispositivoWS">
+        <h3>{{dis.tipo}}<span><img alt="" src=""></span></h3>      
+        <ul>
+            <li><b>Disponible</b> {{dis.disponible}}</li>
+					
+        </ul> 
+        <button class="btn btn-dark form-control" ng-click="reserva.verDetalle(dis)">Ver Detalles </button>
+        <a class="btn btn-info form-control" ui-sref="RealisarReserva({idDispositivo: dis.codigo})">Reservar </a>
+        
+    </div>
+</div>
+<span us-spinner spinner-key="spinner-1"></span>
+
+
+<!-- 
+<div>
+    <pre>Selected date is: <em>{{reserva.dt | date:'fullDate' }}</em></pre>
+
+    <h4>Inline</h4>
+    <div style="display:inline-block; min-height:290px;">
+      <div uib-datepicker ng-model="reserva.dt" class="well well-sm" datepicker-options="reserva.options"></div>
+    </div>
+
+    <hr />
+    <button ng-click="reserva.fecha()">fecha</button>
+</div>
+
+ -->

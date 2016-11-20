@@ -18,6 +18,8 @@
 <script type="text/javascript"
 	src="css/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/ui-bootstrap-tpls-2.2.0.min.js"></script>
+<script type="text/javascript"  src="js/spin.min.js"></script>
+<script type="text/javascript" src="js/angular-spinner.min.js"></script>
 
 
 <!--  Aplicacion    -->
@@ -30,6 +32,7 @@
 <script type="text/javascript" src="app/prestamos/prestamoCtrl.js"></script>
 <script type="text/javascript" src="app/reservas/reservaCtrl.js"></script>
 <script type="text/javascript" src="app/dispositivos/detalleCtrl.js"></script>
+<script type="text/javascript" src="app/reservas/realizarReservaCtrl.js"></script>
 <!--  Servicios  -->
 <script type="text/javascript" src="app/servicios/Auth.js"></script>
 <script type="text/javascript" src="app/servicios/Dispositivos.js"></script>
@@ -60,7 +63,7 @@
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown">Acciones <span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
-							<li ng-show="nav.autenticado && !nav.isAdmin"><a href="#">Realizar Reserva</a></li>
+							<li ng-show="nav.autenticado && !nav.isAdmin"><a ui-sref ="Reserva">Realizar Reserva</a></li>
 							<li ng-show="nav.autenticado && !nav.isAdmin" class="divider"></li>
 							<li ng-show="nav.autenticado && !nav.isAdmin"><a href="#">Mis Prestamos</a></li>
 							<li ng-show="nav.autenticado && !nav.isAdmin" class="divider"></li>

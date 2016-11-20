@@ -3,7 +3,7 @@
 <div id="table-dispositivos" class="clear">
     <div class="plan" ng-repeat = "dis in dispositivo.lista.dispositivoWS">
         <h3>{{dis.tipo}}<span><img alt="" src=""></span></h3>
-        <a class="btn btn-info" ng-show="dispositivo.autenticado()">Reservar</a>         
+        <a class="btn btn-info" ng-show="dispositivo.autenticado()" ui-sref="RealisarReserva({idDispositivo: dis.codigo})">Reservar</a>         
         <ul>
             <li><b>Disponible</b> {{dis.disponible}}</li>
 					
@@ -13,5 +13,5 @@
         
     </div>
 </div>
-
+<span us-spinner spinner-key="spinner-1"></span>
 

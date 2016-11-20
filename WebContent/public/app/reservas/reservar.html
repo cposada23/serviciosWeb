@@ -1,0 +1,36 @@
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col col-md-8 col-md-offset-2">
+			<div >
+				
+				<div id="table-dispositivos" class="clear">
+    				<div class="res" >
+				        <h3>Informacion de la reserva<span><img alt="" src=""></span></h3>       
+				        <ul>
+				        	<li><b>Usuario</b> {{reserva.usuario.nombres}} {{reserva.usuario.apellidos}}</li>
+				        	
+				        	<li><b>idDispositivo</b> {{reserva.dispositivo}} </li>
+				        	<li>Fecha: <em>{{reserva.dt | date:'fullDate' }}</em></li>				        		
+				        </ul> 
+				        <div>
+				        
+						    <h4>Escoja la fecha</h4>
+						    <div style="display:inline-block; min-height:290px;">
+						      <div uib-datepicker ng-model="reserva.dt" class="well well-sm" datepicker-options="reserva.options"></div>
+						    </div>						
+						    <hr />
+						</div>
+				        <button class="btn btn-info form-contro" ng-disabled="!reserva.habilitado" ng-click="reserva.reservar()">Reservar</button>
+    				</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+</div>
+
+

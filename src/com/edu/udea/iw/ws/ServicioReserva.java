@@ -2,6 +2,7 @@ package com.edu.udea.iw.ws;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -133,6 +134,25 @@ public class ServicioReserva {
 			return resultado;
 		} catch (MyDaoExeption e) {
 			throw new MyDaoExeption("No se encontraron reservas para el usuario", null);
+		}
+	}
+	
+	@GET
+	@Path("pfecha")
+	public void fecha(@QueryParam("fecha") Date fecha){
+		System.out.println("hola");
+		System.out.println(fecha);
+	}
+	
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("realizarReserva")
+	public void realizarReserva(@QueryParam("usuarioReserva")String usuarioReserva, @QueryParam("dispositivo")int dispositivo, @QueryParam("fecha")Date fecha)throws RemoteException{
+		try {
+			reservaBL.realizarReserva2(usuarioReserva, dispositivo, fecha);
+		} catch (MyDaoExeption e) {
+			throw new  RemoteException(e.getMessage(),e);
 		}
 	}
 	

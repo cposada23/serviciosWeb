@@ -10,10 +10,10 @@
 		.module("Prestamos").controller('dispositivoCtrl',dispositivoCtrl);
 	
 	/*Inyeccion de las dependencias para el controlador*/
-	dispositivoCtrl.$inject = ['Dispositivos', '$uibModal', 'Auth'];
+	dispositivoCtrl.$inject = ['Dispositivos', '$uibModal', 'Auth','usSpinnerService'];
 	
 	
-	function dispositivoCtrl(Dispositivos, $uibModal, Auth) {
+	function dispositivoCtrl(Dispositivos, $uibModal, Auth, usSpinnerService) {
 		var vm = this;
 		
 		vm.autenticado = Auth.isAutenticado;
@@ -40,11 +40,14 @@
 		
 		vm.listarDispositivos = function() {
 			console.log("hola");
+			  usSpinnerService.spin('spinner-1');
 			Dispositivos.listarDispositivos().then(function(data) {
 				console.log("data " + JSON.stringify(data));
+				
 				vm.lista = data;
 			}).catch(function(error) {
 				console.error("Error " + error);
+				 usSpinnerService.stop('spinner-1');
 			});;
 			
 		}

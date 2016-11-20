@@ -57,6 +57,21 @@
                     return cb(error); //Se vuelve a la funcion del controlador que halla llamado al servicio junto con el error
 				});
 				return deferred.promise; //Este servicio retorna una promesa	
+			},
+			reservar: function(usuarioReserva, dispositivo, fecha, callback) {
+				var cb = callback || angular.noop;
+				var deferred =  $q.defer();
+				/* metodo post al servicio web para reslizar una reserva */
+				$http.post('http://localhost:8080/ServiciosWeb/rest/ServicioReserva/realizarReserva?usuarioReserva='+usuarioReserva+'&dispositivo='+dispositivo+'&fecha='+fecha).success(function(data) {
+					deferred.resolve(data); //Se resuelve la promesa con los datos de la reserva
+					return cb(); //Se vuelve a la funcion del controlador que halla llamado al servicio 
+                    
+				}).error(function(error) {
+                    deferred.reject(error); //se rechaza la promesa
+                    return cb(error); //Se vuelve a la funcion del controlador que halla llamado al servicio junto con el error
+				});
+				return deferred.promise; //Este servicio retorna una promesa	
+				
 			}
 		}
 		

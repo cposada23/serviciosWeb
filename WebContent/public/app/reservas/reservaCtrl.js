@@ -10,13 +10,15 @@
 		.module("Prestamos").controller('reservaCtrl',reservaCtrl);
 	
 	/*Inyeccion de las dependencias para el controlador*/
-	reservaCtrl.$inject = ['Auth', 'Reserva'];
+	reservaCtrl.$inject = ['Auth', 'Reserva','$http', 'Dispositivos','$uibModal'];
 	
 	
-	function reservaCtrl(Auth, Reserva) {
+	function reservaCtrl(Auth, Reserva, $http ,Dispositivos, $uibModal) {
 		
 		var vm = this;
 		vm.usuario = Auth.getUsuario();
+		
+		/** --------------------------------- Aprobar reservas --------------------------**/
 		vm.reservas = [];
 		vm.mostrar = 0;
 		vm.isCollapsed = false;
@@ -56,6 +58,74 @@
 				console.log("error" + error);
 			});
 		}
+		/** ------------------------------------ Fin aprobar reservas ----------------------------------**/
+		
+		/** ------------------------------------ Listar dispositivos  ----------------------------------**/
+		
+		vm.listarDispositivos = function() {
+			console.log("hola");
+			Dispositivos.listarDispositivos().then(function(data) {
+				console.log("data " + JSON.stringify(data));
+				
+				vm.lista = data;
+			}).catch(function(error) {
+				console.error("Error " + error);
+			});;
+			
+		}
+		vm.listarDispositivos();
+		
+		
+		vm.verDetalle = function(dispositivo) {
+			console.log("dis "  + JSON.stringify(dispositivo));
+			var modalInstance = $uibModal.open({
+                templateUrl: 'app/dispositivos/detalle.html',
+                controller: 'detalleCtrl',
+                resolve: {
+                    dis: function () {
+                        return dispositivo;
+                    }
+                },
+            });
+
+            modalInstance.result.then(function(data) {
+                //resolved
+            }, function() {
+                //rejected
+            });
+		}
+		
+		
+		/** ------------------------------------ Fin listar           ----------------------------------**/
+		
+		/** ------------------------------------ Realizar reservas -------------------------------------**/
+		
+
+		 
+
+		vm.options = {
+		  //customClass: getDayClass,
+		  minDate: new Date(),
+		  showWeeks: true
+		};
+		vm.events = [];
+				  
+		  
+		vm.fecha = function() {
+			console.log("fecha " + vm.dt);
+			$http.post('http://localhost:8080/ServiciosWeb/rest/ServicioReserva/realizarReserva?usuarioReserva=121212&dispositivo=5&fecha='+vm.dt).success(function(data) {
+				console.log("success");
+			}).error(function(error) {
+				console.error(error);
+			});
+		}
+
+		  
+		
+		 
+		
+	
+		
 		
 		
 	}
