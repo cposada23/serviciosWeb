@@ -1,0 +1,16 @@
+<h1>Lista de Prestamos</h1>
+
+<div id="table-dispositivos" class="clear">
+    <div class="plan" ng-repeat = "dis in prestamo.lista.prestamoWS">
+        <h3>{{dis.dispositivo.tipo}}<span><img alt="" src=""></span></h3>       
+        <ul>
+            <li><b>Fecha Inicio</b> {{dis.fechaInicio}}</li>
+            <li><b>Fecha Fin</b> {{dis.fechaFin}}</li>
+					
+        </ul> 
+        
+        <button class="btn btn-dark" ng-click="dispositivo.verDetalle(dis)">Ver Detalles</button>
+        
+    </div>
+</div>
+<span us-spinner spinner-key="spinner-1"></span>

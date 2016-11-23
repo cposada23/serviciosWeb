@@ -1,0 +1,17 @@
+<h1>Lista de Reservas</h1>
+
+<div id="table-dispositivos" class="clear">
+    <div class="plan" ng-repeat = "dis in reserva.lista.reservaWS">
+        <h3>{{dis.dispositivo.tipo}}<span><img alt="" src=""></span></h3>       
+        <ul>
+            <li><b>Fecha Reserva</b> {{dis.FechaReserva}}</li>
+			<li><b>Fecha Reserva</b> {{dis.FechaReserva}}</li>
+			<li><b>Aprobado</b> {{dis.aprobado}}</li>		
+        </ul> 
+        
+        <button class="btn btn-dark" ng-click="dispositivo.verDetalle(dis)">Ver Detalles</button>
+        
+    </div>
+</div>
+<span us-spinner spinner-key="spinner-1"></span>
+

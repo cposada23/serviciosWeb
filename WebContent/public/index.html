@@ -24,15 +24,15 @@
 
 <!--  Aplicacion    -->
 <script type="text/javascript" src="app/app.js"></script>
-<script type="text/javascript" src="app/home/homeCtrl.js">
-	
-</script>
+<script type="text/javascript" src="app/home/homeCtrl.js"></script>
 <script type="text/javascript" src="app/perfil/perfilCtrl.js"></script>
 <script type="text/javascript" src="app/dispositivos/dispositivoCtrl.js"></script>
 <script type="text/javascript" src="app/prestamos/prestamoCtrl.js"></script>
 <script type="text/javascript" src="app/reservas/reservaCtrl.js"></script>
 <script type="text/javascript" src="app/dispositivos/detalleCtrl.js"></script>
 <script type="text/javascript" src="app/reservas/realizarReservaCtrl.js"></script>
+<script type="text/javascript" src="app/reservas/listarMisReservasCtrl.js"></script>
+<script type="text/javascript" src="app/prestamos/listarMisPrestamosCtrl.js"></script>
 <!--  Servicios  -->
 <script type="text/javascript" src="app/servicios/Auth.js"></script>
 <script type="text/javascript" src="app/servicios/Dispositivos.js"></script>
@@ -65,9 +65,9 @@
 						<ul class="dropdown-menu" role="menu">
 							<li ng-show="nav.autenticado && !nav.isAdmin"><a ui-sref ="Reserva">Realizar Reserva</a></li>
 							<li ng-show="nav.autenticado && !nav.isAdmin" class="divider"></li>
-							<li ng-show="nav.autenticado && !nav.isAdmin"><a href="#">Mis Prestamos</a></li>
+							<li ng-show="nav.autenticado && !nav.isAdmin"><a ui-sref ="ListarPrestamos">Mis Prestamos</a></li>
 							<li ng-show="nav.autenticado && !nav.isAdmin" class="divider"></li>
-							<li ng-show="nav.autenticado && !nav.isAdmin"><a href="#">Mis Reservas</a></li>
+							<li ng-show="nav.autenticado && !nav.isAdmin"><a ui-sref ="ListarReservas">Mis Reservas</a></li>
 							<li ng-show="nav.autenticado && nav.isAdmin" class="divider"></li>
 							<li ng-show="nav.autenticado && nav.isAdmin"><a ui-sref="AprobarReserva">Aprobar reserva</a></li>
 							<li ng-show="nav.autenticado && nav.isAdmin" class="divider"></li>

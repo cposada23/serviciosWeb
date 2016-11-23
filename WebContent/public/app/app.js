@@ -63,7 +63,19 @@
 	        	url:'/listaDispositivos',
 	        	templateUrl:'app/dispositivos/dispositivo.html',
 	        	controller: 'dispositivoCtrl as dispositivo'
-	        });
+	        })
+	        	.state('ListarReservas',{
+	        	url:'/listaReservas',
+	        	templateUrl:'app/reservas/listarMisReservas.html',
+	        	controller: 'listarMisReservasCtrl as reserva'
+	        })
+	        	.state('ListarPrestamos',{
+	        	url:'/listaPrestamos',
+	        	templateUrl:'app/prestamos/listarMisPrestamos.html',
+	        	controller: 'listarMisPrestamosCtrl as prestamo'
+	        })
+	        
+	        ;
 		
 	}
 })(window, window.angular);
