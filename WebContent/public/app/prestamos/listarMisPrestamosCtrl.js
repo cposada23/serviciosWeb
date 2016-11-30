@@ -10,7 +10,7 @@
 		.module("Prestamos").controller('listarMisPrestamosCtrl',listarMisReservasCtrl);
 	
 	/*Inyeccion de las dependencias para el controlador*/
-	dispositivoCtrl.$inject = ['Prestamo', '$uibModal', 'Auth','usSpinnerService'];
+	listarMisReservasCtrl.$inject = ['Prestamo', '$uibModal', 'Auth','usSpinnerService'];
 	
 	
 	function listarMisPrestamosCtrl(Prestamo, $uibModal, Auth, usSpinnerService) {
@@ -18,8 +18,8 @@
 		
 		vm.autenticado = Auth.isAutenticado;
 		
-		vm.verDetalle = function(dispositivo) {
-			console.log("dis "  + JSON.stringify(dispositivo));
+		vm.verDetalle = function(reserva) {
+			console.log("dis "  + JSON.stringify(reserva));
 			var modalInstance = $uibModal.open({
                 templateUrl: 'app/prestamos/detalle.html',
                 controller: 'detalleCtrl',
