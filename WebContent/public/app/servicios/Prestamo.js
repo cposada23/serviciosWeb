@@ -10,17 +10,17 @@
 		.module("Prestamos").factory('Prestamo',Prestamo);
 	
 	/*Inyeccion de las dependencias para el Servicio*/
-	Reserva.$inject = ['$q', '$http'];
+	Prestamo.$inject = ['$q', '$http'];
 	
 	
-	function Reserva($q, $http) {
+	function Prestamo($q, $http) {
 		
 		return {
 			misPrestamos: function(usuario, callback) {
 				var cb = callback || angular.noop;
 				var deferred =  $q.defer();
 				/* metodo get al servicio web que retorna las reservas de un usuario  */
-				$http.get('http://localhost:8080/ServiciosWeb/rest/ServicioServicioPrestamo/BuscarPrestamos?usuarioPresta='+usuario).success(function(data) {
+				$http.get('http://localhost:8080/ServiciosWeb/rest/ServicioPrestamo/BuscarPrestamos?usuarioPresta='+usuario).success(function(data) {
 					deferred.resolve(data); //Se resuelve la promesa con los datos del usuario
 					return cb(); //Se vuelve a la funcion del controlador que halla llamado al servicio login
                     

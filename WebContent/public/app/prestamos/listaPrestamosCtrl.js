@@ -13,7 +13,7 @@
 	listaPrestamosCtrl.$inject = ['Prestamo', '$uibModal', 'Auth','usSpinnerService'];
 	
 	
-	function listarMisPrestamosCtrl(Prestamo, $uibModal, Auth, usSpinnerService) {
+	function listaPrestamosCtrl(Prestamo, $uibModal, Auth, usSpinnerService) {
 		var vm = this;
 		
 		vm.autenticado = Auth.isAutenticado;
@@ -53,8 +53,5 @@
 			
 		}
 		vm.listarReservas();
-	
-		
-		
 	}
 })(window, window.angular);

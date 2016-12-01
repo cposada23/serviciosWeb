@@ -10,14 +10,14 @@
 		.module("Prestamos").controller('listarMisReservasCtrl',listarMisReservasCtrl);
 	
 	/*Inyeccion de las dependencias para el controlador*/
-	dispositivoCtrl.$inject = ['Reserva', '$uibModal', 'Auth','usSpinnerService'];
+	listarMisReservasCtrl.$inject = ['Reserva', '$uibModal', 'Auth','usSpinnerService'];
 	
 	
 	function listarMisReservasCtrl(Reserva, $uibModal, Auth, usSpinnerService) {
 		var vm = this;
 		
 		vm.autenticado = Auth.isAutenticado;
-		
+		vm.lista  = [];
 		vm.verDetalle = function(dispositivo) {
 			console.log("dis "  + JSON.stringify(dispositivo));
 			var modalInstance = $uibModal.open({
@@ -40,15 +40,13 @@
 		
 		vm.listarReservas = function() {
 			console.log("hola");
-			  usSpinnerService.spin('spinner-1');
 			  var cedula = Auth.getUsuario().cedula;
 			Reserva.misReservas(cedula).then(function(data) {
 				console.log("data " + JSON.stringify(data));
-				
-				vm.lista = data;
+				vm.lista = Array.isArray(data.reservaWS)?data.reservaWS:[data.reservaWS];
+
 			}).catch(function(error) {
 				console.error("Error " + error);
-				 usSpinnerService.stop('spinner-1');
 			});;
 			
 		}

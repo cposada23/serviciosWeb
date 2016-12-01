@@ -33,9 +33,11 @@
 			console.log("reservar");
 			Reserva.reservar(vm.usuario.cedula, vm.dispositivo, vm.dt).then(function(data) {
 				console.log("reserva realizada ");
+				alert("reserva realizada");
 			}).catch(function(error) {
 				vm.habilitado = true;
 				console.error("error" + error);
+				alert("hubo un error");
 			});
 		}
 		

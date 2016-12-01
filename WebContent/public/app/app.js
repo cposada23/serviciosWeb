@@ -64,18 +64,16 @@
 	        	templateUrl:'app/dispositivos/dispositivo.html',
 	        	controller: 'dispositivoCtrl as dispositivo'
 	        })
-	        	.state('ListarReservas',{
+	        .state('ListarReservas',{
 	        	url:'/listaReservas',
 	        	templateUrl:'app/reservas/listarMisReservas.html',
 	        	controller: 'listarMisReservasCtrl as reserva'
 	        })
-	        	.state('ListarPrestamos',{
+	        .state('ListarPrestamos',{
 	        	url:'/listaPrestamos',
 	        	templateUrl:'app/prestamos/listarMisPrestamos.html',
-	        	controller: 'listarMisPrestamosCtrl as prestamo'
-	        })
-	        
-	        ;
+	        	controller: 'prestamoCtrl as prestamo'
+	        });
 		
 	}
 })(window, window.angular);

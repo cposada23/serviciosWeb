@@ -52,6 +52,7 @@
 			Reserva.aprobar(vm.usuario.cedula, codigo).then(function() {
 				if(vm.mostrar === 1){
 					vm.reservas.aprobado = "true";
+					alert("Reserva aprobada");
 				}
 				console.log("reserva Aprobada");
 			}).catch(function(error) {
